@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>A Reason to Drink - Fantasy League</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f7f7f7;
+      text-align: center;
+      padding: 2rem;
+    }
+    form {
+      background: white;
+      padding: 2rem;
+      border-radius: 10px;
+      display: inline-block;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+    input[type="text"] {
+      width: 80%;
+      padding: 0.7rem;
+      margin-top: 1rem;
+      font-size: 1rem;
+    }
+    label {
+      margin: 1rem;
+      font-size: 1.1rem;
+    }
+    button {
+      margin-top: 1.5rem;
+      padding: 0.7rem 1.2rem;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+    .thank-you {
+      display: none;
+      font-size: 1.3rem;
+      color: green;
+      margin-top: 2rem;
+    }
+  </style>
+</head>
+<body>
+
+<h1>🏈 A Reason to Drink Fantasy League 🥃</h1>
+<p>Draft Date: <strong>August 25th at 6 PM</strong></p>
+<p>Are you in?</p>
+
+<form action="https://formspree.io/f/xqalbppj" method="POST" id="rsvpForm">
+  <input type="text" name="name" placeholder="Your name" required /><br><br>
+
+  <label>
+    <input type="radio" name="response" value="Yes" required />
+    Yes
+  </label>
+  <label>
+    <input type="radio" name="response" value="No" required />
+    No
+  </label><br><br>
+
+  <button type="submit">Submit</button>
+</form>
+
+<div class="thank-you" id="thankYouMessage">
+  🙌 Thanks for your response!
+</div>
+
+<script>
+  const form = document.getElementById('rsvpForm');
+  const thankYouMessage = document.getElementById('thankYouMessage');
+
+  form.addEventListener('submit', function(event) {
+    event.preventDefault();
+    const formData = new FormData(form);
+    fetch(form.action, {
+      method: form.method,
+      body: formData,
+      headers: {
+        'Accept': 'application/json'
+      }
+    }).then(response => {
+      if (response.ok) {
+        form.style.display = 'none';
+        thankYouMessage.style.display = 'block';
+      } else {
+        alert('There was an issue submitting the form. Please try again later.');
+      }
+    }).catch(error => {
+      alert('An error occurred. Please try again.');
+    });
+  });
+</script>
+
+</body>
+</html>
